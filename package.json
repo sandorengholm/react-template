@@ -1,34 +1,61 @@
 {
-  "name": "battle-for-allpoints",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "battle-for-allpoints",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.4.0",
+        "@testing-library/user-event": "^7.2.1",
+        "core-js": "^3.6.4",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "react-scripts": "3.3.0",
+        "regenerator-runtime": "^0.13.3"
+    },
+    "scripts": {
+        "start": "npx webpack-dev-server --config webpack.dev.js --open --progress --colors",
+        "build": "npx webpack --config webpack.dev.js",
+        "build:prod": "npx webpack --config webpack.prod.js"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@babel/core": "^7.8.3",
+        "@babel/preset-env": "^7.8.3",
+        "@babel/preset-react": "^7.8.3",
+        "@babel/preset-typescript": "^7.8.3",
+        "@types/react": "^16.9.19",
+        "@types/react-dom": "^16.9.5",
+        "babel-loader": "^8.0.6",
+        "clean-webpack-plugin": "^3.0.0",
+        "css-loader": "^3.4.2",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^5.0.2",
+        "html-webpack-plugin": "^3.2.0",
+        "mini-css-extract-plugin": "^0.9.0",
+        "node-sass": "^4.13.1",
+        "postcss-loader": "^3.0.0",
+        "sass-loader": "^8.0.2",
+        "source-map-loader": "^0.2.4",
+        "style-loader": "^1.1.3",
+        "ts-loader": "^6.2.1",
+        "typescript": "^3.7.5",
+        "webpack": "^4.41.5",
+        "webpack-cli": "^3.3.10",
+        "webpack-dev-server": "^3.10.1",
+        "webpack-merge": "^4.2.2"
+    }
 }
