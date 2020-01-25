@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env = 'development') => ({
     mode: env,
@@ -15,6 +16,9 @@ module.exports = (env = 'development') => ({
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json']
     },
+    performance: {
+        hints: false
+    },
     devServer: {
         historyApiFallback: true,
         contentBase: './',
@@ -25,9 +29,26 @@ module.exports = (env = 'development') => ({
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'resolve-url-loader',
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: env === 'development'
+                        }
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                            url: false
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true,
+                            plugins: [require('autoprefixer')()]
+                        }
+                    },
                     'sass-loader'
                 ]
             },
@@ -35,21 +56,17 @@ module.exports = (env = 'development') => ({
             { test: /\.tsx?$/, loader: 'ts-loader' },
             { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
             {
-                test: /\.(png|svg|jpe?g|gif)$/,
+                test: /\.(png|svg|jpg|gif)$/,
                 loader: 'file-loader',
                 options: {
-                    name(file) {
-                        if (env === 'development') {
-                            return '[path][name].[ext]';
-                        }
-                        return '[name].[contenthash].[ext]';
-                    }
+                    name: '[path][name].[ext]'
                 }
             },
             { test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['file-loader'] }
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
@@ -63,6 +80,11 @@ module.exports = (env = 'development') => ({
                     ? '[name].css'
                     : '[name].[contenthash].css'
         }),
-        new CleanWebpackPlugin()
+        new CopyWebpackPlugin([
+            {
+                from: __dirname + '/src/assets',
+                to: __dirname + '/dist/assets'
+            }
+        ])
     ]
 });
