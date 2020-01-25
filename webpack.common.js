@@ -15,11 +15,21 @@ module.exports = (env = 'development') => ({
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json']
     },
+    devServer: {
+        historyApiFallback: true,
+        contentBase: './',
+        hot: true
+    },
     module: {
         rules: [
             {
                 test: /\.scss$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'resolve-url-loader',
+                    'sass-loader'
+                ]
             },
             { test: /\.tsx?$/, loader: 'babel-loader' },
             { test: /\.tsx?$/, loader: 'ts-loader' },
